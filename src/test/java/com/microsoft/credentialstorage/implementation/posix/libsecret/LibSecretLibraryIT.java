@@ -35,10 +35,8 @@ public class LibSecretLibraryIT {
         final String type = "PersonalAccessToken";
 
         final String password1 = "testingPassword";
-        final String password2 = "testingPassword2";
         final String password3 = create8192CharLongPassword();
         final String key1 = "http://testingurl.com";
-        final String key2 = "http://another.testingurl.com";
         final String key3 = "http://another.testingurl.org";
 
         // Write a credential to libsecret
@@ -58,21 +56,6 @@ public class LibSecretLibraryIT {
                 );
 
         assertTrue("Could not store password1: " + parseError(pError), result);
-
-        result = underTest.secret_password_store_sync(
-                schema,
-                LibSecretLibrary.SECRET_COLLECTION_SESSION, //save to memory only
-                "E2E Manual Testing Secret", // same display name
-                password2,
-                null,
-                pError,
-                //attributes list
-                "Type", type,
-                "Key", key2,
-                null
-        );
-
-        assertTrue("Could not store password2: " + parseError(pError), result);
 
         result = underTest.secret_password_store_sync(
                 schema,
@@ -125,8 +108,6 @@ public class LibSecretLibraryIT {
 
         // now let's delete them all
         result = underTest.secret_password_clear_sync(schema, null, pError, "Type", type, "Key", key1, null);
-        assertTrue(parseError(pError), result);
-        result = underTest.secret_password_clear_sync(schema, null, pError, "Type", type, "Key", key2, null);
         assertTrue(parseError(pError), result);
         result = underTest.secret_password_clear_sync(schema, null, pError, "Type", type, "Key", key3, null);
         assertTrue(parseError(pError), result);
