@@ -34,9 +34,10 @@ public abstract class LibSecretBackedSecureStore<E extends StoredSecret> impleme
     protected static final String APP_NAME = "Credential Secure Storage (libsecret)";
 
     protected static final String ALLOW_UNLOCK_DEFAULT_COLLECTION = "AUTH_LIB_ALLOW_UNLOCK_DEFAULT_COLLECTION";
-    protected static final String ATTRIBUTE_TYPE = "Type";
-    protected static final String ATTRIBUTE_KEY = "Key";
-    protected static final String ATTRIBUTE_ACCOUNT = "Account";
+    protected static final String ATTRIBUTE_TYPE = "type";
+    protected static final String ATTRIBUTE_KEY = "server";
+    protected static final String ATTRIBUTE_ACCOUNT = "user";
+    protected static final String PLAINTEXT = "plaintext";
 
     /**
      * Read a secret from Libsecret using its item API to get attributes containing username.
@@ -132,7 +133,7 @@ public abstract class LibSecretBackedSecureStore<E extends StoredSecret> impleme
             final PointerByReference error = new PointerByReference();
             try {
                 // set attributes to search
-                GLibLibrary.INSTANCE.g_hash_table_insert(searchAttributesHashTable, getPointer(ATTRIBUTE_TYPE), getPointer(getType()));
+                GLibLibrary.INSTANCE.g_hash_table_insert(searchAttributesHashTable, getPointer(ATTRIBUTE_TYPE), getPointer(PLAINTEXT));
                 GLibLibrary.INSTANCE.g_hash_table_insert(searchAttributesHashTable, getPointer(ATTRIBUTE_KEY), getPointer(key));
 
                 // find the item
@@ -176,7 +177,7 @@ public abstract class LibSecretBackedSecureStore<E extends StoredSecret> impleme
                     null,
                     error,
                     //attributes list
-                    ATTRIBUTE_TYPE, getType(),
+                    ATTRIBUTE_TYPE, PLAINTEXT,
                     ATTRIBUTE_KEY, key,
                     ATTRIBUTE_ACCOUNT, account,
                     null
@@ -193,7 +194,7 @@ public abstract class LibSecretBackedSecureStore<E extends StoredSecret> impleme
                     SCHEMA,
                     null,
                     error,
-                    ATTRIBUTE_TYPE, getType(),
+                    ATTRIBUTE_TYPE, PLAINTEXT,
                     ATTRIBUTE_KEY, key,
                     null);
         }

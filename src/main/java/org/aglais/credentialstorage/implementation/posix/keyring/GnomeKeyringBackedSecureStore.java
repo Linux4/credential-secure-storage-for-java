@@ -30,9 +30,10 @@ public abstract class GnomeKeyringBackedSecureStore<E extends StoredSecret> impl
     protected static final String APP_NAME = "Credential Secure Storage (keyring)";
 
     protected static final String ALLOW_UNLOCK_KEYRING = "AUTH_LIB_ALLOW_UNLOCK_GNOME_KEYRING";
-    protected static final String ATTRIBUTE_TYPE = "Type";
-    protected static final String ATTRIBUTE_KEY = "Key";
-    protected static final String ATTRIBUTE_ACCOUNT = "Account";
+    protected static final String ATTRIBUTE_TYPE = "type";
+    protected static final String ATTRIBUTE_KEY = "server";
+    protected static final String ATTRIBUTE_ACCOUNT = "user";
+    protected static final String PLAINTEXT = "plaintext";
 
     /**
      * Read a secret from GNOME Keyring using its item API to get attributes containing username.
@@ -127,7 +128,7 @@ public abstract class GnomeKeyringBackedSecureStore<E extends StoredSecret> impl
             final Pointer[] foundList = new Pointer[1];
             try {
                 // set attributes to search
-                INSTANCE.gnome_keyring_attribute_list_append_string(searchAttributes, ATTRIBUTE_TYPE, getType());
+                INSTANCE.gnome_keyring_attribute_list_append_string(searchAttributes, ATTRIBUTE_TYPE, PLAINTEXT);
                 INSTANCE.gnome_keyring_attribute_list_append_string(searchAttributes, ATTRIBUTE_KEY, key);
 
                 // find the item
@@ -178,7 +179,7 @@ public abstract class GnomeKeyringBackedSecureStore<E extends StoredSecret> impl
                     key, //display name
                     new String(secret),
                     //attributes list
-                    ATTRIBUTE_TYPE, getType(),
+                    ATTRIBUTE_TYPE, PLAINTEXT,
                     ATTRIBUTE_KEY, key,
                     ATTRIBUTE_ACCOUNT, account,
                     null
@@ -193,7 +194,7 @@ public abstract class GnomeKeyringBackedSecureStore<E extends StoredSecret> impl
         if (INSTANCE != null && SCHEMA != null) {
             return INSTANCE.gnome_keyring_delete_password_sync(
                     SCHEMA,
-                    ATTRIBUTE_TYPE, getType(),
+                    ATTRIBUTE_TYPE, PLAINTEXT,
                     ATTRIBUTE_KEY, key,
                     null);
         }
