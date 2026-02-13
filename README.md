@@ -19,13 +19,13 @@ Maven is the preferred way to referencing this library.
 
 ```xml
   <dependency>
-    <groupId>com.microsoft</groupId>
+    <groupId>org.aglais</groupId>
     <artifactId>credential-secure-storage</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.4</version>
   </dependency>
 ```
 
-Here is sample code for [credentials](sample/src/main/java/com/microsoft/credentialstorage/sample/StoredCredentialApp.java) 
+Here is sample code for [credentials](sample/src/main/java/org/aglais/credentialstorage/sample/StoredCredentialApp.java) 
 that shows how to use this library.
 
 

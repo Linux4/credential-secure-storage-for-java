@@ -25,14 +25,14 @@ SOFTWARE
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.microsoft</groupId>
+  <groupId>org.aglais</groupId>
   <artifactId>credential-secure-storage</artifactId>
   <version>1.0.4</version>
   <packaging>jar</packaging>
 
   <name>Secure storage for storing credentials or tokens.</name>
   <description>Unified platform-independent interface to store secrets in credential managers provided by OS (Windows, macOS, Linux).</description>
-  <url>https://github.com/Microsoft/credential-secure-storage-for-java</url>
+  <url>https://github.com/Aglais-Dev/credential-secure-storage-for-java</url>
 
   <developers>
     <developer>
